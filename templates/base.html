@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ThoughtChain</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+        .success { color: green; font-weight: bold; padding: 10px; background: #e8f5e9; border: 1px solid green; }
+        form p { margin-bottom: 15px; }
+        input[type="text"], input[type="password"], input[type="email"], select { width: 100%; padding: 8px; margin-top: 5px; }
+        button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+        a { color: #2196F3; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <!-- This part displays success/error messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    
+    <!-- This is where the specific content of each page will go -->
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
