@@ -9,6 +9,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('dashboard/', views.dashboard_redirect, name='dashboard'),
     path('profile/', views.profile, name='profile'),
-    # Redirects the empty homepage to login
+    path('profile/edit/', views.ProfileUpdateView.as_view(), name='profile_edit'),
     path('', RedirectView.as_view(pattern_name='login', permanent=False)),
 ]
