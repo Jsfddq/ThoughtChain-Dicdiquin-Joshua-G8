@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>{{ action }} Node</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{{ action }} Node</button>
+  </form>
+  <p><a href="{% url 'node_list' %}">Cancel</a></p>
+{% endblock %}

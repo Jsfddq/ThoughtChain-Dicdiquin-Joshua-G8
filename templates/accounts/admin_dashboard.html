@@ -2,7 +2,10 @@
 {% block content %}
   <h2>Admin Dashboard</h2>
   <p>Welcome, {{ user.username }}! You are an Admin.</p>
+  
+  <a href="{% url 'node_list' %}">View Your Nodes</a> | 
   <a href="{% url 'profile' %}">View Profile</a> | 
+  
   <form method="post" action="{% url 'logout' %}" style="display:inline;">
     {% csrf_token %}
     <button type="submit" style="background:none; border:none; color:#2196F3; text-decoration:none; cursor:pointer; padding:0; font-family:inherit; font-size:inherit;">
