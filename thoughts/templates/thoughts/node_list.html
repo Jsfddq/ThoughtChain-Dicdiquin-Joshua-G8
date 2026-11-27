@@ -8,8 +8,22 @@
     <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
       <h3>{{ node.title }}</h3>
       <p>{{ node.description }}</p>
+      
+      <!-- DISPLAY THE LINKS HERE -->
+      <div style="background-color: #f0f0f0; padding: 5px; margin: 10px 0;">
+        <strong>Connections:</strong>
+        <ul>
+            {% for link in node.outgoing_links.all %}
+                <li>Points to: <strong>{{ link.target_node.title }}</strong></li>
+            {% empty %}
+                <li>No outgoing links yet.</li>
+            {% endfor %}
+        </ul>
+      </div>
+
       <small>Created: {{ node.created_at|date:"M d, Y" }}</small><br><br>
       <a href="{% url 'node_update' node.pk %}">Edit</a> | 
+      <a href="{% url 'link_node' node.pk %}">Link to another Node</a> | 
       <a href="{% url 'node_delete' node.pk %}" style="color: red;">Delete</a>
     </div>
   {% empty %}
