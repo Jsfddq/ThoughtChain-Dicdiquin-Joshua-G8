@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Your Thought Nodes</h2>
+  <a href="{% url 'node_create' %}"><button>+ Create New Node</button></a>
+  <hr>
+  
+  {% for node in nodes %}
+    <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+      <h3>{{ node.title }}</h3>
+      <p>{{ node.description }}</p>
+      <small>Created: {{ node.created_at|date:"M d, Y" }}</small><br><br>
+      <a href="{% url 'node_update' node.pk %}">Edit</a> | 
+      <a href="{% url 'node_delete' node.pk %}" style="color: red;">Delete</a>
+    </div>
+  {% empty %}
+    <p>You haven't created any nodes yet.</p>
+  {% endfor %}
+  
+  <br>
+  <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+{% endblock %}
