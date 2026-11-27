@@ -23,3 +23,15 @@ class NodeTag(models.Model):
 
     class Meta:
         unique_together = ('node', 'tag')
+
+class NodeLink(models.Model):
+    source_node = models.ForeignKey(Node, on_delete=models.CASCADE, related_name='outgoing_links')
+    target_node = models.ForeignKey(Node, on_delete=models.CASCADE, related_name='incoming_links')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        # This prevents linking the exact same pair twice
+        unique_together = ('source_node', 'target_node')
+
+    def __str__(self):
+        return f"{self.source_node.title} -> {self.target_node.title}"

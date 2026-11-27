@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Node
-from .forms import NodeForm
+from .models import Node, NodeLink
+from .forms import NodeForm, NodeLinkForm
 
 @login_required
 def node_list(request):
@@ -48,3 +48,21 @@ def node_delete(request, pk):
         messages.success(request, 'Node deleted!')
         return redirect('node_list')
     return render(request, 'thoughts/node_confirm_delete.html', {'node': node})
+
+@login_required
+def link_node(request, pk):
+    # Get the source node, ensuring the user owns it
+    source_node = get_object_or_404(Node, pk=pk, user=request.user)
+    
+    if request.method == 'POST':
+        form = NodeLinkForm(request.POST, user=request.user, source_node=source_node)
+        if form.is_valid():
+            link = form.save(commit=False)
+            link.source_node = source_node
+            link.save()
+            messages.success(request, 'Node linked successfully!')
+            return redirect('node_list')
+    else:
+        form = NodeLinkForm(user=request.user, source_node=source_node)
+        
+    return render(request, 'thoughts/link_node.html', {'form': form, 'source_node': source_node})
