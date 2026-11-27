@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Link Node: {{ source_node.title }}</h2>
+  <p>Select another node to connect to this one:</p>
+  
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Link</button>
+  </form>
+  <p><a href="{% url 'node_list' %}">Cancel</a></p>
+{% endblock %}
